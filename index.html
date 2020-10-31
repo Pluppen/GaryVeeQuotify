@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Facylolylo</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+        <script defer src="face-api.min.js"></script>
+        <script defer src="script.js"></script>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                width: 100vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: "Lato", sans-serif;
+            }
+
+            canvas {
+                position: absolute;
+            }
+
+            #loader {
+                width: 100vw;
+                height: 100vh;
+                background-color: #FFF;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                z-index: 100;
+            }
+
+            #status {
+                position: absolute;
+                top: 100px;
+                left: 25%;
+            }
+
+            #status {
+                text-transform: uppercase;
+            }
+
+            .happy {
+                background: yellow;
+                color: #FFF;
+            }
+
+            .angry {
+                background: red;
+                color: #FFF;
+            }
+
+            .neutral {
+                background: #F5F5F5;
+            }
+
+            .surprised {
+                background: pink;
+            }
+
+            .sad {
+                background: blue;
+                color: #FFF;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="loader"><h1>Loading Site</h1></div>
+        <h1 id="status">Hello! You seem <span id="mood"></h1>
+        <video id="video" width="720" height="560" autoplay muted></video>
+    </body>
+</html>
+
