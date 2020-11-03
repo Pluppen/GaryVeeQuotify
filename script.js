@@ -7,6 +7,14 @@ Promise.all([
     faceapi.nets.faceExpressionNet.loadFromUri('./models')
 ]).then(startVideo)
 
+
+let images = {
+    "happy": ["happy_0.png", "happy_1.jpg"],
+    "sad": ["sad_0.jpeg", "sad_1.jpg", "sad_2.jpg"],
+    "surprised": ["suprised_0.jpg"],
+    "neutral": ["neutral_0.jpg", "neutral_1.png", "neutral_2.png", "neutral_3.jpg", "neutral_4.png"]
+}
+
 function startVideo(){
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: true })
@@ -20,6 +28,7 @@ function startVideo(){
     }
 }
 
+let oldMood = null;
 video.addEventListener('play', () => {
     document.getElementById("loader").style.display = "none";
     const canvas = faceapi.createCanvasFromMedia(video)
@@ -36,12 +45,13 @@ video.addEventListener('play', () => {
                 mood.value = diff
             }
         }
-        document.getElementById("mood").innerHTML = mood.name;
-        document.body.className = mood.name;
-        const resizedDetections = faceapi.resizeResults(detections, displaySize)
-        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-        faceapi.draw.drawDetections(canvas, resizedDetections)
-        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
-        faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+        console.log(oldMood == mood.name);
+        if(oldMood != mood.name){
+            oldMood = mood.name;
+            document.getElementById("mood").innerHTML = mood.name;
+            document.body.className = mood.name;
+            let img = document.getElementById("image");
+            img.src = "images/" + images[mood.name][Math.floor(Math.random() * images[mood.name].length)] 
+        }
     }, 100)
 })
